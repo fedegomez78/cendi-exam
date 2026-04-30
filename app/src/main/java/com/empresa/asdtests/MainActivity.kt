@@ -31,7 +31,6 @@ import com.google.firebase.firestore.QuerySnapshot
 import androidx.annotation.NonNull
 
 import com.google.android.gms.tasks.OnCompleteListener
-import kotlinx.android.synthetic.main.activity_create_account.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -62,6 +61,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
 
         role = "Unknown"
 
+        auth.signOut()
 
         binding.progressBarMainActivity.visibility = View.GONE
 
@@ -101,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         if(currentUser != null){
 
             Log.e("FG", "El usuario con uId: " + currentUser?.uid.toString() + "tiene el role: " + role)
+            Toast.makeText(this, "Botón presionado currentuser", Toast.LENGTH_SHORT).show()
 
             db.collection("users").document(currentUser?.uid.toString()).get().addOnSuccessListener {
                 role = (it.get("role") as String?).toString()
@@ -115,6 +117,8 @@ class MainActivity : AppCompatActivity() {
 
             binding.btnSignIn.setOnClickListener {
 
+                Log.e("FB", "Botón Sign In presionado")
+                Toast.makeText(this, "Botón presionado", Toast.LENGTH_SHORT).show()
 
                 if(binding.etUsername.text.toString().length < 1 ){
                     binding.etUsername.setError("Este campo no puede ser vácio")
@@ -250,10 +254,12 @@ class MainActivity : AppCompatActivity() {
     private fun login(email: String, password: String){
 
         Log.e("FG", "entró a loguearse")
+        Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
+                    Log.e("FB", "Login exitoso")
                     Log.d("LOG TAG", "signInWithEmail:success")
                     val user = auth.currentUser
 
@@ -261,6 +267,8 @@ class MainActivity : AppCompatActivity() {
                         role = (it.get("role") as String?).toString()
                         Log.e("FG", "Ingreso a buscar en DB funcion login.  Role: " + role)
                         verActivityUsuarioLogueado(role);
+                    }.addOnFailureListener {
+                        Log.e("FB", "Error obteniendo role: " + it.message)
                     }
 
 
@@ -270,8 +278,11 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     binding.progressBarMainActivity.visibility = View.GONE
                     // If sign in fails, display a message to the user.
+                    Log.e("FB", "Error login: " + task.exception?.message)
                     Log.w("LOG TAG", "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, task.exception?.message,
+                        Toast.LENGTH_LONG).show()
                     //updateUI(null)
                 }
             }

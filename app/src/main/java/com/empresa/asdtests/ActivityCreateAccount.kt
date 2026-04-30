@@ -17,7 +17,6 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
-import kotlinx.android.synthetic.main.fragment_create_account_detail.*
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -100,6 +99,7 @@ class ActivityCreateAccount : AppCompatActivity() {
         //si todo esta validado se procede a insertar a la base de datos y a crear usuario en FireBase
         if(flagValidform) {
             //todo bien (form validado)
+            Log.e("FB", "Formulario válido, creando usuario...")
 
             Toast.makeText(
                 this,
@@ -118,6 +118,7 @@ class ActivityCreateAccount : AppCompatActivity() {
                         guardarDatosUsuario(user?.uid.toString())
                         verActivityUsuarioLogueado()
                     } else {
+                        Log.e("FB", "Error al crear usuario: " + task.exception?.message)
                         Toast.makeText(baseContext, "Authentication failed.",
                             Toast.LENGTH_SHORT).show()
                     }
@@ -150,10 +151,10 @@ class ActivityCreateAccount : AppCompatActivity() {
 
         db.collection("users").document(userId).set(
             hashMapOf(
-                "email" to etEmail.text.toString(),
-                "name" to etNombre.text.toString(),
-                "lastname" to etApellido.text.toString(),
-                "phone" to etNumTelefono.text.toString(),
+                "email" to binding.etEmail.text.toString(),
+                "name" to binding.etNombre.text.toString(),
+                "lastname" to binding.etApellido.text.toString(),
+                "phone" to binding.etNumTelefono.text.toString(),
                 "role" to rolUsuario
                 )
         )

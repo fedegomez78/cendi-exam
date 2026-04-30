@@ -3,6 +3,7 @@ package com.empresa.asdtests
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -16,7 +17,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_ver_resultado.*
+
 
 
 class ActivityVerResultado : AppCompatActivity() {
@@ -118,14 +119,14 @@ class ActivityVerResultado : AppCompatActivity() {
                 }else {
                     resultado = 0.0
                 }
-                edtResultadoActual.setText(correctas.toString() + " / " + totalPreguntas.toString())
+                binding.edtResultadoActual.setText(correctas.toString() + " / " + totalPreguntas.toString())
 
 
 
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.e("FB", "Error: " + error.message)
             }
 
         }
@@ -177,16 +178,16 @@ class ActivityVerResultado : AppCompatActivity() {
 
                 }
 
-                edtCantidadTestsRealizados.setText((listTestsAcumuladoUsuario.size/5).toString())
-                edtCantidadTotalPreguntas.setText(cantPreguntas.toString())
-                edtCantidadTotalPreguntasCorrectas.setText(cantPreguntasCorrectas.toString())
+                binding.edtCantidadTestsRealizados.setText((listTestsAcumuladoUsuario.size/5).toString())
+                binding.edtCantidadTotalPreguntas.setText(cantPreguntas.toString())
+                binding.edtCantidadTotalPreguntasCorrectas.setText(cantPreguntasCorrectas.toString())
 
                 if(cantPreguntas>0) {
                     resultado = (cantPreguntasCorrectas.toDouble() / cantPreguntas.toDouble())*100
                 }else{
                     resultado = 0.0
                 }
-                edtResultadoAcumulado.setText(resultado.toString() + "%")
+                binding.edtResultadoAcumulado.setText(resultado.toString() + "%")
 
 
 
@@ -194,7 +195,7 @@ class ActivityVerResultado : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.e("FB", "Error: " + error.message)
             }
 
         }

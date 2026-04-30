@@ -19,8 +19,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
-import kotlinx.android.synthetic.main.activity_pantalla_principal.*
-import kotlinx.android.synthetic.main.activity_realizar_test.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -97,7 +95,7 @@ class ActivityRealizarTest : AppCompatActivity() {
 
             //Toast.makeText(this, "${test}", Toast.LENGTH_SHORT ).show()
 
-            lvPreguntasTest.visibility = View.GONE
+            binding.lvPreguntasTest.visibility = View.GONE
             supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
                 .replace( R.id.fragmentContainerResolverTest, FragmentResponderPregunta::class.java, args, "ResponderPreguntas" )
@@ -188,7 +186,7 @@ class ActivityRealizarTest : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.e("FB", "Error: " + error.message)
             }
 
         }

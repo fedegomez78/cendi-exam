@@ -9,7 +9,7 @@
     <string name="create_account_using_your_e_mail">Crear cuenta usando tu correo</string>
     <string name="usuario_logueado">Usuario Logueado</string>
     <string name="role_de_usuario">Rol de usuario</string>
-    <string name="lista_de_preguntas">Lista de Preguntas</string>
+    <string name="lista_de_preguntas">Lista de Preguntas: </string>
     <string name="cerrar_sesion">Cerrar Sesion</string>
     <string name="ver_resultados">Ver Resultados</string>
     <string name="agregar_pregunta">Agregar Pregunta</string>

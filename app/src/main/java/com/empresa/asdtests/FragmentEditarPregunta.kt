@@ -12,7 +12,6 @@ import com.empresa.asdtests.model.Pregunta
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
-import kotlinx.android.synthetic.main.fragment_editar_pregunta.*
 
 
 class FragmentEditarPregunta : Fragment() {
@@ -95,12 +94,12 @@ private fun eliminarPregunta(idPregunta: String) {
     private fun actualizarPregunta() {
 
         var pregunta : Pregunta = Pregunta (
-            edtId.text.toString(),
-            edtArea.text.toString(),
-            edtPreguntaTexto.text.toString(),
-            edtOpcion1.text.toString(),
-            edtOpcion2.text.toString(),
-            edtRespuesta.text.toString())
+            binding.edtId.text.toString(),
+            binding.edtArea.text.toString(),
+            binding.edtPreguntaTexto.text.toString(),
+            binding.edtOpcion1.text.toString(),
+            binding.edtOpcion2.text.toString(),
+            binding.edtRespuesta.text.toString())
 
         dbReferencePreguntas.child(pregunta.id).setValue(pregunta)
 

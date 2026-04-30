@@ -13,8 +13,6 @@ import com.empresa.asdtests.model.Test
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
-import kotlinx.android.synthetic.main.fragment_editar_pregunta.*
-import kotlinx.android.synthetic.main.fragment_responder_pregunta.*
 import java.util.*
 
 
@@ -74,36 +72,36 @@ class FragmentResponderPregunta : Fragment() {
 
 
         binding.chk1.setOnClickListener {
-            if(chk1.isChecked) {
-                chk2.setEnabled(false)
-                chk3.setEnabled(false)
+            if(binding.chk1.isChecked) {
+                binding.chk2.setEnabled(false)
+                binding.chk3.setEnabled(false)
             }else
             {
-                chk2.setEnabled(true)
-                chk3.setEnabled(true)
+                binding.chk2.setEnabled(true)
+                binding.chk3.setEnabled(true)
             }
         }
 
         binding.chk2.setOnClickListener {
-            if(chk2.isChecked) {
-                chk1.setEnabled(false)
-                chk3.setEnabled(false)
+            if(binding.chk2.isChecked) {
+                binding.chk1.setEnabled(false)
+                binding.chk3.setEnabled(false)
             }else
             {
-                chk1.setEnabled(true)
-                chk3.setEnabled(true)
+                binding.chk1.setEnabled(true)
+                binding.chk3.setEnabled(true)
             }
         }
 
 
         binding.chk3.setOnClickListener {
-            if(chk3.isChecked) {
-                chk1.setEnabled(false)
-                chk2.setEnabled(false)
+            if(binding.chk3.isChecked) {
+                binding.chk1.setEnabled(false)
+                binding.chk2.setEnabled(false)
             }else
             {
-                chk1.setEnabled(true)
-                chk2.setEnabled(true)
+                binding.chk1.setEnabled(true)
+                binding.chk2.setEnabled(true)
             }
         }
 
@@ -123,21 +121,21 @@ class FragmentResponderPregunta : Fragment() {
         private fun responderPregunta() {
 
             var respuestaCorrecta = 0
-            if((!chk1.isChecked and !chk2.isChecked and !chk3.isChecked)){
+            if((!binding.chk1.isChecked and !binding.chk2.isChecked and !binding.chk3.isChecked)){
 
                 Toast.makeText(requireContext(), "Error. Selecciona una respuesta", Toast.LENGTH_SHORT).show()
-                chk1.setError("Error debes escoger una y solo una respuesta")
-                chk2.setError("Error debes escoger una y solo una respuesta")
-                chk3.setError("Error debes escoger una y solo una respuesta")
+                binding.chk1.setError("Error debes escoger una y solo una respuesta")
+                binding.chk2.setError("Error debes escoger una y solo una respuesta")
+                binding.chk3.setError("Error debes escoger una y solo una respuesta")
 
             }else {
 
-                if (chk1.isChecked) {
+                if (binding.chk1.isChecked) {
                     Log.e("FG", "la respuesta es INcorrecta")
                     //salir()
                 }
 
-                if (chk2.isChecked) {
+                if (binding.chk2.isChecked) {
                     Log.e("FG", "la respuesta es correcta")
                     respuestaCorrecta = 1
                 //salir()
@@ -145,12 +143,12 @@ class FragmentResponderPregunta : Fragment() {
 
                 //actualizar test
                 var test = Test(
-                edtTestUniqueId.text.toString(),
-                edtTestId.text.toString(),
-                edtUserId.text.toString(),
-                edtPreguntaId.text.toString(),
-                edtTestPreguntaArea.text.toString(),
-                edtTestPreguntaTexto.text.toString(),
+                    binding.edtTestUniqueId.text.toString(),
+                    binding.edtTestId.text.toString(),
+                    binding.edtUserId.text.toString(),
+                    binding.edtPreguntaId.text.toString(),
+                    binding.edtTestPreguntaArea.text.toString(),
+                    binding.edtTestPreguntaTexto.text.toString(),
                 respuestaCorrecta
                 )
 

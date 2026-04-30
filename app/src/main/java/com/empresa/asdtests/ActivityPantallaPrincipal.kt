@@ -21,8 +21,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
-import kotlinx.android.synthetic.main.activity_pantalla_principal.*
-import kotlinx.android.synthetic.main.fragment_user_preguntas.*
+
 
 class ActivityPantallaPrincipal : AppCompatActivity() {
 
@@ -70,7 +69,7 @@ class ActivityPantallaPrincipal : AppCompatActivity() {
 
         Toast.makeText(this, "aca el role es: "+role, Toast.LENGTH_SHORT).show()
 
-        tvUser.setText(role).toString()
+        binding.tvUser.setText(role).toString()
 
         if(role.equals("Admin")){
             verListadoPreguntas()
@@ -100,7 +99,7 @@ class ActivityPantallaPrincipal : AppCompatActivity() {
 
             //Toast.makeText(this, "${pregunta}", Toast.LENGTH_SHORT ).show()
 
-            lvPreguntas.visibility = View.GONE
+            binding.lvPreguntas.visibility = View.GONE
             supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
                 .replace( R.id.fragmentContainerPantallaPrincipal, FragmentEditarPregunta::class.java, args, "Preguntas" )
@@ -112,9 +111,9 @@ class ActivityPantallaPrincipal : AppCompatActivity() {
 
 
 
-        btnAgregarPregunta.setOnClickListener {
+        binding.btnAgregarPregunta.setOnClickListener {
             //Se oculta el listado de Peliculas para mostrar la ventana de adicionar Pelicula
-            lvPreguntas.visibility = View.GONE
+            binding.lvPreguntas.visibility = View.GONE
 
             supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
@@ -179,7 +178,7 @@ class ActivityPantallaPrincipal : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.e("FB", "Error: " + error.message)
             }
 
         }
